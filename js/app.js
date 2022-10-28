@@ -45,16 +45,13 @@ for (section of sections){
     anchor.setAttribute('href','#'+ sectionId);
     anchor.textContent = sectionAttr;
     listItem.appendChild(anchor);
-    ulEl.appendChild(listItem);
+    ulEl.appendChild(listItem);  
 
 }
 
 /**
  * Listen to click event
  * Stop default event from occuring 
- * Scroll to section on link click
- * Add class 'active' to section when near top of viewport
- * Set sections as active
  */
 
 
@@ -69,17 +66,39 @@ for (listAnchor of listAnchors){
             top: offsetTop,
             behavior: "smooth"
         })
-        const current = document.getElementsByClassName("active-class");
-        console.log(current.length);
-        if(current.length > 0) {
-            current[0].classList.remove("active-class");
-    
-        }
-        
-        const section = document.getElementById(href.substring(1));
-        section.classList.add('active-class');
-    });
+
+    })
+
 }
+
+/**
+ * Scroll to section on link click
+ * Add class 'active' to section when near top of viewport
+ * Set sections as active
+ */
+
+    window.addEventListener("scroll",function(event){ 
+        for (section of sections){
+            const sectionTop = section.getBoundingClientRect().top + 300;
+            const windowHeight = this.innerHeight;
+
+            if(sectionTop< innerHeight){
+                const current = document.getElementsByClassName("active-class");
+            
+
+                if(current.length > 0) {
+                    current[0].classList.remove("active-class");
+                }
+                section.classList.add('active-class');
+            }
+
+            
+        }
+    })
+ 
+
+        
+   
 
 
 
